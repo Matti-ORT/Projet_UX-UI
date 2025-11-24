@@ -1,4 +1,5 @@
 import { Header } from '@/components/common/Header';
+import { formatPrice } from '@/utils/format';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { CheckCircle, ChevronLeft } from 'lucide-react-native';
 import React, { useState } from 'react';
@@ -7,6 +8,8 @@ import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'rea
 export default function SummaryScreen() {
   const router = useRouter();
   const { service, price, date, time } = useLocalSearchParams();
+  const serviceValue = Array.isArray(service) ? service[0] : service ?? '';
+  const priceValue = Array.isArray(price) ? price[0] : price ?? '';
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleConfirm = () => {
@@ -31,8 +34,10 @@ export default function SummaryScreen() {
         
         <Text style={styles.label}>Prestation Selectionnée</Text>
         <View style={styles.infoBox}>
-          <Text style={styles.infoText}>{service ?? 'Aucune'}</Text>
-          {price && <Text style={[styles.infoText, { color: '#6B7280' }]}>{`€${price}`}</Text>}
+          <Text style={styles.infoText}>{serviceValue || 'Aucune'}</Text>
+          {priceValue && (
+            <Text style={[styles.infoText, { color: '#6B7280' }]}>{formatPrice(priceValue)}</Text>
+          )}
         </View>
 
         <Text style={styles.label}>Date & Heure</Text>
@@ -75,6 +80,11 @@ export default function SummaryScreen() {
     </View>
   );
 }
+
+// Masquer l'en-tête natif du Stack navigator pour utiliser notre Header personnalisé
+export const options = {
+  headerShown: false,
+};
 
 const styles = StyleSheet.create({
   root: {

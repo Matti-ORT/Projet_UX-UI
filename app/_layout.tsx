@@ -40,6 +40,9 @@ export default function RootLayout() {
         {/* Groupe d'onglets principal */}
         <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
         
+        {/* Groupe Réservation: masquer l'en-tête pour toutes les routes /reservation/* */}
+        <Stack.Screen name="reservation" options={{ headerShown: false }} />
+
         {/* Groupe d'authentification (Login/Signup) - Sans en-tête */}
         <Stack.Screen name="auth" options={{ headerShown: false }} />
         

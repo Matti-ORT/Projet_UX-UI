@@ -1,4 +1,5 @@
 import { Header } from '@/components/common/Header';
+import { formatPrice } from '@/utils/format';
 import { useRouter } from 'expo-router';
 import { ChevronLeft } from 'lucide-react-native';
 import React from 'react';
@@ -45,7 +46,7 @@ export default function ServiceSelectionScreen() {
           {manServices.map((s) => (
             <TouchableOpacity key={s.name} style={styles.serviceItem} onPress={() => handleServiceSelect(s)}>
               <Text style={styles.serviceText}>{s.name}</Text>
-              <Text style={styles.priceText}>€{s.price}</Text>
+              <Text style={styles.priceText}>{formatPrice(s.price)}</Text>
             </TouchableOpacity>
           ))}
         </View>
@@ -63,6 +64,11 @@ export default function ServiceSelectionScreen() {
     </View>
   );
 }
+
+// Masquer l'en-tête natif du Stack navigator pour utiliser notre Header personnalisé
+export const options = {
+  headerShown: false,
+};
 
 const styles = StyleSheet.create({
   root: {

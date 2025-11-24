@@ -1,4 +1,5 @@
 import { Header } from '@/components/common/Header';
+import { formatPrice } from '@/utils/format';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ChevronDown, ChevronLeft } from 'lucide-react-native';
 import React, { useState } from 'react';
@@ -7,12 +8,15 @@ import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-nati
 export default function SlotSelectionScreen() {
   const router = useRouter();
   const { service, price } = useLocalSearchParams();
+  // Normaliser les valeurs car useLocalSearchParams peut retourner string | string[]
+  const serviceValue = Array.isArray(service) ? service[0] : service ?? '';
+  const priceValue = Array.isArray(price) ? price[0] : price ?? '';
   const [expandedDate, setExpandedDate] = useState<string | null>('Mardi 02/01/2026');
 
   const handleSlotSelect = (date: string, time: string) => {
     const path = `/reservation/summary?service=${encodeURIComponent(
-      service ?? ''
-    )}&price=${encodeURIComponent(price ?? '')}&date=${encodeURIComponent(
+      serviceValue
+    )}&price=${encodeURIComponent(priceValue)}&date=${encodeURIComponent(
       date
     )}&time=${encodeURIComponent(time)}`;
     router.push(path as any);
@@ -32,10 +36,10 @@ export default function SlotSelectionScreen() {
       </TouchableOpacity>
 
       <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
-        {service && (
+        {serviceValue && (
           <View style={styles.selectedContainer}>
-            <Text style={styles.selectedText}>{`Prestation: ${service}`}</Text>
-            {price && <Text style={styles.selectedPrice}>{`€${price}`}</Text>}
+            <Text style={styles.selectedText}>{`Prestation: ${serviceValue}`}</Text>
+            {priceValue && <Text style={styles.selectedPrice}>{formatPrice(priceValue)}</Text>}
           </View>
         )}
         <Text style={styles.sectionTitle}>Choix de la date & Heure</Text>
@@ -95,6 +99,11 @@ export default function SlotSelectionScreen() {
     </View>
   );
 }
+
+// Masquer l'en-tête natif du Stack navigator pour utiliser notre Header personnalisé
+export const options = {
+  headerShown: false,
+};
 
 const styles = StyleSheet.create({
   root: {
