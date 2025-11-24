@@ -4,12 +4,28 @@ import { ChevronLeft } from 'lucide-react-native';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+// Les services sont définis comme des objets
+const manServices = [
+  { name: 'Coupe homme classique', price: 20 },
+  { name: 'Dégrader + barbe', price: 25 },
+  { name: 'Coupe Etudiante', price: 15 },
+];
+
+const womanServices = [
+  { name: 'Coupe femme', price: 35 },
+  { name: 'Brushing', price: 25 },
+  { name: 'Couleur', price: 45 },
+];
+
 export default function ServiceSelectionScreen() {
   const router = useRouter();
 
-  const handleServiceSelect = (service: string) => {
-    // On pourrait passer le service en paramètre
-    router.push('/reservation/slot');
+  const handleServiceSelect = (service: { name: string; price: number }) => {
+    // Passe le nom et le prix en query string vers l'écran suivant.
+    const path = `/reservation/slot?service=${encodeURIComponent(
+      service.name
+    )}&price=${encodeURIComponent(String(service.price))}`;
+    router.push(path as any);
   };
 
   return (
@@ -26,28 +42,22 @@ export default function ServiceSelectionScreen() {
 
         <Text style={styles.categoryTitle}>Homme</Text>
         <View style={styles.serviceGroup}>
-          <TouchableOpacity style={styles.serviceItem} onPress={() => handleServiceSelect('Coupe homme classique')}>
-            <Text style={styles.serviceText}>Coupe homme classique</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceItem} onPress={() => handleServiceSelect('Dégrader Americain')}>
-            <Text style={styles.serviceText}>Dégrader Americain</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceItem} onPress={() => handleServiceSelect('Coupe Etudiante')}>
-            <Text style={styles.serviceText}>Coupe Etudiante</Text>
-          </TouchableOpacity>
+          {manServices.map((s) => (
+            <TouchableOpacity key={s.name} style={styles.serviceItem} onPress={() => handleServiceSelect(s)}>
+              <Text style={styles.serviceText}>{s.name}</Text>
+              <Text style={styles.priceText}>€{s.price}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
 
         <Text style={styles.categoryTitle}>Femme</Text>
         <View style={styles.serviceGroup}>
-          <TouchableOpacity style={styles.serviceItem} onPress={() => handleServiceSelect('Coupe femme')}>
-            <Text style={styles.serviceText}>Coupe femme</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceItem} onPress={() => handleServiceSelect('Brushing')}>
-            <Text style={styles.serviceText}>Brushing</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.serviceItem} onPress={() => handleServiceSelect('Couleur')}>
-            <Text style={styles.serviceText}>Couleur</Text>
-          </TouchableOpacity>
+          {womanServices.map((s) => (
+            <TouchableOpacity key={s.name} style={styles.serviceItem} onPress={() => handleServiceSelect(s)}>
+              <Text style={styles.serviceText}>{s.name}</Text>
+              <Text style={styles.priceText}>€{s.price}</Text>
+            </TouchableOpacity>
+          ))}
         </View>
       </ScrollView>
     </View>
@@ -90,7 +100,7 @@ const styles = StyleSheet.create({
     marginTop: 10,
   },
   serviceGroup: {
-    backgroundColor: '#E5E7EB', // Gris clair/bleuté comme sur l'image
+    backgroundColor: '#E5E7EB', 
     borderRadius: 15,
     padding: 10,
     marginBottom: 10,
@@ -98,6 +108,15 @@ const styles = StyleSheet.create({
   serviceItem: {
     paddingVertical: 12,
     paddingHorizontal: 10,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  priceText: {
+    fontFamily: 'Roboto Condensed',
+    fontSize: 16,
+    color: '#6B7280',
+    fontWeight: '600',
   },
   serviceText: {
     fontFamily: 'Roboto Condensed',

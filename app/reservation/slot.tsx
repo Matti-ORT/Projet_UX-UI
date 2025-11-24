@@ -1,15 +1,21 @@
 import { Header } from '@/components/common/Header';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { ChevronDown, ChevronLeft } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function SlotSelectionScreen() {
   const router = useRouter();
+  const { service, price } = useLocalSearchParams();
   const [expandedDate, setExpandedDate] = useState<string | null>('Mardi 02/01/2026');
 
   const handleSlotSelect = (date: string, time: string) => {
-    router.push('/reservation/summary');
+    const path = `/reservation/summary?service=${encodeURIComponent(
+      service ?? ''
+    )}&price=${encodeURIComponent(price ?? '')}&date=${encodeURIComponent(
+      date
+    )}&time=${encodeURIComponent(time)}`;
+    router.push(path as any);
   };
 
   const toggleDate = (date: string) => {
@@ -26,6 +32,12 @@ export default function SlotSelectionScreen() {
       </TouchableOpacity>
 
       <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
+        {service && (
+          <View style={styles.selectedContainer}>
+            <Text style={styles.selectedText}>{`Prestation: ${service}`}</Text>
+            {price && <Text style={styles.selectedPrice}>{`€${price}`}</Text>}
+          </View>
+        )}
         <Text style={styles.sectionTitle}>Choix de la date & Heure</Text>
 
         {/* Date 1 */}
@@ -112,6 +124,26 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontWeight: 'bold',
     marginBottom: 20,
+  },
+  selectedContainer: {
+    backgroundColor: '#F3F4F6',
+    borderRadius: 8,
+    padding: 10,
+    marginBottom: 12,
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  selectedText: {
+    fontFamily: 'Roboto Condensed',
+    fontSize: 16,
+    fontWeight: '600',
+  },
+  selectedPrice: {
+    fontFamily: 'Roboto Condensed',
+    fontSize: 16,
+    color: '#6B7280',
+    fontWeight: '600',
   },
   dateGroup: {
     backgroundColor: '#F3F4F6',

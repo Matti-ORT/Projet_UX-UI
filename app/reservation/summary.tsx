@@ -1,11 +1,12 @@
 import { Header } from '@/components/common/Header';
-import { useRouter } from 'expo-router';
+import { useLocalSearchParams, useRouter } from 'expo-router';
 import { CheckCircle, ChevronLeft } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
 export default function SummaryScreen() {
   const router = useRouter();
+  const { service, price, date, time } = useLocalSearchParams();
   const [modalVisible, setModalVisible] = useState(false);
 
   const handleConfirm = () => {
@@ -30,12 +31,13 @@ export default function SummaryScreen() {
         
         <Text style={styles.label}>Prestation Selectionnée</Text>
         <View style={styles.infoBox}>
-          <Text style={styles.infoText}>Coupe homme classique</Text>
+          <Text style={styles.infoText}>{service ?? 'Aucune'}</Text>
+          {price && <Text style={[styles.infoText, { color: '#6B7280' }]}>{`€${price}`}</Text>}
         </View>
 
         <Text style={styles.label}>Date & Heure</Text>
         <View style={styles.infoBox}>
-          <Text style={styles.infoText}>Mardi 02 janvier 2026</Text>
+          <Text style={styles.infoText}>{date ? `${date} — ${time ?? ''}` : 'Non choisi'}</Text>
         </View>
 
         <Text style={styles.label}>Identification</Text>
