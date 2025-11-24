@@ -22,9 +22,6 @@ export default function SignupScreen() {
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
            <ArrowLeft color="#000" size={28} /> 
-           {/* Note: Design shows arrow on blue background, so maybe white or black depending on exact placement. 
-               In the image, the arrow is top left. I'll put it in a safe area or absolute.
-           */}
         </TouchableOpacity>
         <Image 
           source={require('@/assets/images/logoBBRDV.png')} 
@@ -112,7 +109,6 @@ export default function SignupScreen() {
         </ScrollView>
       </View>
       
-      {/* Absolute back button for better placement if needed */}
       <TouchableOpacity onPress={() => router.back()} style={styles.absoluteBack}>
            <ArrowLeft color="#000" size={28} /> 
       </TouchableOpacity>

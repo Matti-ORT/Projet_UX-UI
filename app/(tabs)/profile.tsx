@@ -19,7 +19,7 @@ export default function ProfileScreen() {
             <TextInput 
               style={styles.input} 
               value="Karim" 
-              editable={false} // Ou true si éditable
+              editable={false} 
             />
           </View>
 
@@ -110,7 +110,7 @@ const styles = StyleSheet.create({
   },
   input: {
     width: '65%',
-    backgroundColor: '#D1D5DB', // Gris clair comme sur l'image
+    backgroundColor: '#D1D5DB', 
     borderRadius: 5,
     paddingVertical: 8,
     paddingHorizontal: 12,

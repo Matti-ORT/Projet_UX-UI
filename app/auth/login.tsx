@@ -18,7 +18,6 @@ export default function LoginScreen() {
       {/* Header / Logo Area */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
-           {/* ArrowLeft icon could go here if needed, but usually login is root or modal */}
         </TouchableOpacity>
         <Image 
           source={require('@/assets/images/logoBBRDV.png')} 
@@ -140,7 +139,7 @@ const styles = StyleSheet.create({
   },
   loginButton: {
     backgroundColor: '#F97316', // Orange
-    borderRadius: 25, // Rounded pill shape
+    borderRadius: 25, 
     paddingVertical: 12,
     paddingHorizontal: 40,
     marginTop: 20,
