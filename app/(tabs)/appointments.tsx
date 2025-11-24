@@ -101,7 +101,7 @@ export default function AppointmentsScreen() {
         <Text style={styles.sectionTitle}>Passés</Text>
         <View style={[styles.card, { opacity: 0.7 }]}>
            <View style={styles.cardContent}>
-            <Text style={styles.nomDuSalon}>Barber Shop Deluxe</Text>
+            <Text style={styles.nomDuSalon}>Barber Shop </Text>
              <View style={styles.infoRow}>
               <Calendar size={16} color="#6B7280" />
               <Text style={styles.infoText}>10 Octobre 2025</Text>

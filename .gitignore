@@ -41,3 +41,20 @@ app-example
 # generated native folders
 /ios
 /android
+
+# Expo shared and local expo files
+.expo-shared/
+
+# Editor and OS
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Logs and test artifacts
+*.log
+coverage/
+
+# Local environment files
+.env
+.env.*
