@@ -1,3 +1,4 @@
+// Imports: header personnalisé, utilitaire format price, navigation et UI
 import { Header } from '@/components/common/Header';
 import { formatPrice } from '@/utils/format';
 import { useRouter } from 'expo-router';
@@ -5,7 +6,8 @@ import { ChevronLeft } from 'lucide-react-native';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
-// Les services sont définis comme des objets
+// Liste de services disponibles (exemples) pour homme/femme
+// Ces objets sont transmis ensuite via query string (nom + prix)
 const manServices = [
   { name: 'Coupe homme classique', price: 20 },
   { name: 'Dégrader + barbe', price: 25 },
@@ -21,8 +23,9 @@ const womanServices = [
 export default function ServiceSelectionScreen() {
   const router = useRouter();
 
+  // Quand l'utilisateur sélectionne un service, on encode le nom et le prix
+  // dans la query string et on navigue vers l'étape suivante (créneaux)
   const handleServiceSelect = (service: { name: string; price: number }) => {
-    // Passe le nom et le prix en query string vers l'écran suivant.
     const path = `/reservation/slot?service=${encodeURIComponent(
       service.name
     )}&price=${encodeURIComponent(String(service.price))}`;

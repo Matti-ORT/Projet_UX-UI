@@ -1,19 +1,25 @@
+// Composants et hooks utilisés dans cet écran
 import { Header } from '@/components/common/Header';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+// Écran profil : affiche les informations de l'utilisateur et propose des actions
 export default function ProfileScreen() {
   const router = useRouter();
 
+  // Rendu principal : header, formulaire d'infos, actions (enregistrer/annuler) et logout
   return (
     <View style={styles.root}>
       <Header title="Mes informations" />
       
       <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
+        {/* Titre: coordonnées de l'utilisateur */}
         <Text style={styles.sectionTitle}>Mes coordonnées</Text>
 
+        {/* Formulaire des informations (actuellement en lecture seule) */}
         <View style={styles.formContainer}>
+          {/* Nom et prénom (readonly pour l'instant) */}
           <View style={styles.inputRow}>
             <Text style={styles.label}>Prenom</Text>
             <TextInput 
@@ -53,6 +59,7 @@ export default function ProfileScreen() {
           </View>
         </View>
 
+        {/* Actions: sauvegarder les modifications (non opérationnel ici) et annuler */}
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.saveButton}>
             <Text style={styles.buttonText}>Enregistrer</Text>
@@ -63,8 +70,9 @@ export default function ProfileScreen() {
           </TouchableOpacity>
         </View>
 
+        {/* Bouton de déconnexion: redirige vers l'écran de login */}
         <TouchableOpacity style={styles.logoutButton} onPress={() => router.replace('/auth/login')}>
-            <Text style={styles.logoutButtonText}>Se déconnecter</Text>
+          <Text style={styles.logoutButtonText}>Se déconnecter</Text>
         </TouchableOpacity>
 
       </ScrollView>

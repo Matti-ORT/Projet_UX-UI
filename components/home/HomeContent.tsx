@@ -1,3 +1,4 @@
+// Composants principaux de l'écran d'accueil: icônes, Header personnalisé et UI de base
 import { MapPin, Scissors, Search } from 'lucide-react-native';
 import React from 'react';
 import { ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
@@ -5,6 +6,7 @@ import { Header } from '../common/Header';
 
 import type { StyleProp, ViewStyle } from 'react-native';
 
+// Props optionnelles: style et testID pour faciliter les tests/unités
 export interface HomeContentProps {
   style?: StyleProp<ViewStyle>;
   testID?: string;
@@ -19,11 +21,13 @@ export function HomeContent(props: HomeContentProps) {
     router.push('/reservation/service');
   };
 
+  // Rendu: header, recherche, liste et carte salon avec un bouton réserver
   return (
     <View testID={props.testID ?? 'HomeContentRoot'} style={[styles.root, props.style]}>
       <Header title="Bonjour Karim Beubar" />
       
       <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
+        {/* Titre et barre de recherche */}
         <Text style={styles.sectionTitle}>Cherchez un Salon qui vous plait</Text>
         
         <View style={styles.searchWrapper}>
@@ -37,7 +41,7 @@ export function HomeContent(props: HomeContentProps) {
 
         <Text style={styles.sectionTitle}>Selectionnez un salon à proximité</Text>
 
-        {/* Carte Salon */}
+        {/* Carte Salon: aperçu type d'un salon, bouton Réservez redirige vers la réservation */}
         <View style={styles.card}>
           <View style={styles.cardImagePlaceholder} />
           
@@ -54,6 +58,7 @@ export function HomeContent(props: HomeContentProps) {
               <Text style={styles.adresse}>Adresse du salon, Ville</Text>
             </View>
 
+            {/* Bouton pour démarrer le flux de réservation */}
             <TouchableOpacity style={styles.reserveButton} onPress={handleReserve}>
               <Text style={styles.reserveText}>Réservez</Text>
             </TouchableOpacity>

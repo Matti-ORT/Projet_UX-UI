@@ -1,3 +1,4 @@
+// Imports: Header, utilitaires de format, navigation et UI
 import { Header } from '@/components/common/Header';
 import { formatPrice } from '@/utils/format';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -5,20 +6,26 @@ import { CheckCircle, ChevronLeft } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Modal, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+// Écran récapitulatif: affiche prestation, date/heure et informations utilisateur
+// Permet de confirmer la réservation et affiche un modal de succès
 export default function SummaryScreen() {
   const router = useRouter();
+  // Lecture des paramètres (service, price, date, time) depuis la query string
+  // Normalisation type string | string[] handling done below
   const { service, price, date, time } = useLocalSearchParams();
   const serviceValue = Array.isArray(service) ? service[0] : service ?? '';
   const priceValue = Array.isArray(price) ? price[0] : price ?? '';
   const [modalVisible, setModalVisible] = useState(false);
 
+  // Confirme la réservation (mock) et ouvre le modal de succès
   const handleConfirm = () => {
     setModalVisible(true);
   };
 
+  // Ferme le modal et redirige vers l'écran principal
   const handleCloseModal = () => {
     setModalVisible(false);
-    router.push('/(tabs)'); // Retour à l'accueil
+    router.push('/(tabs)'); // Retour à l'accueil (tabs)
   };
 
   return (

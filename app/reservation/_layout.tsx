@@ -1,3 +1,4 @@
+// Layout des écrans de réservation: regroupe service/slot/summary et masque l'en-tête natif
 import { Stack } from 'expo-router';
 import React from 'react';
 

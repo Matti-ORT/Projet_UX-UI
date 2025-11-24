@@ -1,3 +1,4 @@
+// Layout pour les routes d'authentification: masque l'en-tête natif et expose login/signup
 import { Stack } from 'expo-router';
 import React from 'react';
 

@@ -1,10 +1,13 @@
+// Composants et icônes utilisés dans l'écran
 import { Header } from '@/components/common/Header';
 import { Calendar, Clock, MapPin } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Modal, Pressable, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+// Écran principal des rendez-vous (liste, actions et modaux)
 export default function AppointmentsScreen() {
-  // Etapes a venir (mock data) -- en réel on récupèrerait depuis une API
+  
+  // Liste de rendez-vous (donnée mock pour l'exemple)
   const [appointments, setAppointments] = useState([
     {
       id: '1',
@@ -15,15 +18,18 @@ export default function AppointmentsScreen() {
     },
   ]);
 
+  // Etats pour contrôler l'affichage des modaux et l'élément sélectionné
   const [cancelModalVisible, setCancelModalVisible] = useState(false);
   const [detailModalVisible, setDetailModalVisible] = useState(false);
   const [selectedAppointment, setSelectedAppointment] = useState<any | null>(null);
 
+  // Ouvre le modal de confirmation d'annulation et sélectionne le RDV
   const openCancelModal = (appt: any) => {
     setSelectedAppointment(appt);
     setCancelModalVisible(true);
   };
 
+  // Confirme l'annulation: supprime le RDV de la liste locale et ferme le modal
   const confirmCancel = () => {
     if (selectedAppointment) {
       setAppointments((prev) => prev.filter((a) => a.id !== selectedAppointment.id));
@@ -32,11 +38,13 @@ export default function AppointmentsScreen() {
     }
   };
 
+  // Ouvre le modal qui affiche les détails du RDV
   const openDetailModal = (appt: any) => {
     setSelectedAppointment(appt);
     setDetailModalVisible(true);
   };
 
+  // Ferme le modal détails et réinitialise la sélection
   const closeDetailModal = () => {
     setSelectedAppointment(null);
     setDetailModalVisible(false);
@@ -46,13 +54,16 @@ export default function AppointmentsScreen() {
     <View style={styles.root}>
       <Header title="Mes Rendez-vous" />
       
+      {/* Liste des rendez-vous */}
       <ScrollView style={styles.content} contentContainerStyle={styles.scrollContent}>
         <Text style={styles.sectionTitle}>À venir</Text>
 
+        {/* Message si aucune réservation à venir */}
         {appointments.length === 0 && (
           <Text style={{ color: '#6B7280', fontFamily: 'Roboto Condensed' }}>Aucun rendez-vous à venir</Text>
         )}
 
+        {/* Affiche chaque rendez-vous à venir sous forme de carte */}
         {appointments.map((appt) => (
           <View style={styles.card} key={appt.id}>
             <View style={styles.cardContent}>
@@ -73,6 +84,7 @@ export default function AppointmentsScreen() {
                 <Text style={styles.infoText}>{appt.time}</Text>
               </View>
 
+              {/* Actions disponibles: annuler ou voir les détails du RDV */}
               <View style={styles.actionsRow}>
                 <TouchableOpacity style={styles.cancelButton} onPress={() => openCancelModal(appt)}>
                   <Text style={styles.cancelText}>Annuler</Text>
@@ -85,6 +97,7 @@ export default function AppointmentsScreen() {
           </View>
         ))}
 
+        {/* Section exemples: rendez-vous passés */}
         <Text style={styles.sectionTitle}>Passés</Text>
         <View style={[styles.card, { opacity: 0.7 }]}>
            <View style={styles.cardContent}>

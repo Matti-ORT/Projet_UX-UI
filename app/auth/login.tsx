@@ -1,13 +1,16 @@
+// Imports: navigation, icônes, react et composants React Native
 import { Link, useRouter } from 'expo-router';
 import { Key, User } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Image, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+// Écran de connexion: formulaire simple et redirection vers les onglets après connexion mock
 export default function LoginScreen() {
   const router = useRouter();
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
+  // Gére l'action de connexion (mock): redirige vers les onglets principaux
   const handleLogin = () => {
     // Mock login logic
     router.replace('/(tabs)');
@@ -15,7 +18,7 @@ export default function LoginScreen() {
 
   return (
     <View style={styles.container}>
-      {/* Header / Logo Area */}
+      {/* Zone Header / Logo */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
         </TouchableOpacity>
@@ -26,11 +29,12 @@ export default function LoginScreen() {
         />
       </View>
 
-      {/* White Card */}
+      {/* Carte blanche: contient le formulaire de connexion */}
       <View style={styles.card}>
         <Text style={styles.title}>Connexion</Text>
         <View style={styles.divider} />
 
+        {/* Champ email/username */}
         <View style={styles.inputContainer}>
           <User color="#F97316" size={24} style={styles.icon} />
           <TextInput
@@ -42,6 +46,7 @@ export default function LoginScreen() {
           />
         </View>
 
+        {/* Champ mot de passe */}
         <View style={styles.inputContainer}>
           <Key color="#F97316" size={24} style={styles.icon} />
           <TextInput
@@ -54,10 +59,12 @@ export default function LoginScreen() {
           />
         </View>
 
+        {/* Bouton de connexion */}
         <TouchableOpacity style={styles.loginButton} onPress={handleLogin}>
           <Text style={styles.loginButtonText}>Se connecter</Text>
         </TouchableOpacity>
 
+        {/* Footer: lien vers inscription */}
         <View style={styles.footer}>
             <Text style={styles.footerText}>Pas de compte ? </Text>
             <Link href="/auth/signup" asChild>

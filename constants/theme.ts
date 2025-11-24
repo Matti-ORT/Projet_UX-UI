@@ -1,6 +1,9 @@
 /**
- * Below are the colors that are used in the app. The colors are defined in the light and dark mode.
- * There are many other ways to style your app. For example, [Nativewind](https://www.nativewind.dev/), [Tamagui](https://tamagui.dev/), [unistyles](https://reactnativeunistyles.vercel.app), etc.
+ * Thèmes et couleurs de l'application
+ * - `Colors`: contient la palette light/dark pour les composants
+ * - `Fonts`: alias génériques pour les familles de polices selon la plateforme
+ *
+ * Note: modifier ces valeurs affectera le rendu global de l'app.
  */
 
 import { Platform } from 'react-native';
@@ -8,6 +11,7 @@ import { Platform } from 'react-native';
 const tintColorLight = '#0a7ea4';
 const tintColorDark = '#fff';
 
+// Objet colors utilisé pour thématisation (light / dark)
 export const Colors = {
   light: {
     text: '#11181C',
@@ -27,6 +31,7 @@ export const Colors = {
   },
 };
 
+// Fonts: fournit des alias/fallbacks de polices selon le système
 export const Fonts = Platform.select({
   ios: {
     /** iOS `UIFontDescriptorSystemDesignDefault` */

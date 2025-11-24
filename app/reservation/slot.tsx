@@ -1,3 +1,4 @@
+// Imports: Header, formatter, navigation/local params, icons et UI base
 import { Header } from '@/components/common/Header';
 import { formatPrice } from '@/utils/format';
 import { useLocalSearchParams, useRouter } from 'expo-router';
@@ -5,14 +6,18 @@ import { ChevronDown, ChevronLeft } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
 
+// Écran de sélection de créneaux: affiche le nom/prix sélectionné et les dates/heures
 export default function SlotSelectionScreen() {
   const router = useRouter();
+  // Récupère les paramètres passés depuis l'écran précédent (service, price)
+  // useLocalSearchParams peut renvoyer string | string[]: normalisation
   const { service, price } = useLocalSearchParams();
   // Normaliser les valeurs car useLocalSearchParams peut retourner string | string[]
   const serviceValue = Array.isArray(service) ? service[0] : service ?? '';
   const priceValue = Array.isArray(price) ? price[0] : price ?? '';
   const [expandedDate, setExpandedDate] = useState<string | null>('Mardi 02/01/2026');
 
+  // Quand l'utilisateur sélectionne un créneau, on navigue vers le résumé
   const handleSlotSelect = (date: string, time: string) => {
     const path = `/reservation/summary?service=${encodeURIComponent(
       serviceValue
@@ -22,6 +27,7 @@ export default function SlotSelectionScreen() {
     router.push(path as any);
   };
 
+  // Ouvre/ferme la liste des créneaux pour une date donnée
   const toggleDate = (date: string) => {
     setExpandedDate(expandedDate === date ? null : date);
   };

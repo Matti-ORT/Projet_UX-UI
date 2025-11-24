@@ -1,8 +1,10 @@
+// Imports: navigation, icônes, react et composants React Native
 import { Link, useRouter } from 'expo-router';
 import { ArrowLeft } from 'lucide-react-native';
 import React, { useState } from 'react';
 import { Image, ScrollView, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
+// Écran d'inscription: formulaire d'enregistrement utilisateur (mock)
 export default function SignupScreen() {
   const router = useRouter();
   const [nom, setNom] = useState('');
@@ -12,6 +14,7 @@ export default function SignupScreen() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  // Gére l'inscription (mock): redirige vers les onglets principaux
   const handleSignup = () => {
     // Mock signup logic
     router.replace('/(tabs)');
@@ -19,6 +22,7 @@ export default function SignupScreen() {
 
   return (
     <View style={styles.container}>
+      {/* Header: logo et bouton retour */}
       <View style={styles.header}>
         <TouchableOpacity onPress={() => router.back()} style={styles.backButton}>
            <ArrowLeft color="#000" size={28} /> 
@@ -30,10 +34,12 @@ export default function SignupScreen() {
         />
       </View>
 
+      {/* Carte blanche: contient le formulaire d'inscription */}
       <View style={styles.card}>
         <Text style={styles.title}>Inscription</Text>
         <View style={styles.divider} />
 
+        {/* Formulaire: nom, prénom, email, téléphone, mot de passe */}
         <ScrollView showsVerticalScrollIndicator={false} style={styles.formScroll}>
             <View style={styles.row}>
                 <View style={[styles.inputGroup, { flex: 1, marginRight: 10 }]}>
@@ -94,6 +100,7 @@ export default function SignupScreen() {
                 />
             </View>
 
+            {/* Bouton pour s'inscrire */}
             <TouchableOpacity style={styles.signupButton} onPress={handleSignup}>
                 <Text style={styles.signupButtonText}>S'inscrire</Text>
             </TouchableOpacity>
@@ -109,6 +116,7 @@ export default function SignupScreen() {
         </ScrollView>
       </View>
       
+      {/* Bouton de retour (positionné absolument) */}
       <TouchableOpacity onPress={() => router.back()} style={styles.absoluteBack}>
            <ArrowLeft color="#000" size={28} /> 
       </TouchableOpacity>

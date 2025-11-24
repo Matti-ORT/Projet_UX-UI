@@ -1,4 +1,5 @@
-// Configuration Unistyles v3
+// Configuration Unistyles v3: thèmes et tokens utilisés par Unistyles wrapper
+// lightTheme: couleurs, espacements, rayons et police par défaut pour light mode
 export const lightTheme = {
   colors: {
     background: '#FFFFFF',
@@ -11,6 +12,7 @@ export const lightTheme = {
   fonts: { regular: 'Roboto Condensed' },
 } as const;
 
+// darkTheme: les mêmes tokens pour le mode sombre
 export const darkTheme = {
   colors: {
     background: '#121212',
@@ -23,10 +25,11 @@ export const darkTheme = {
   fonts: { regular: 'Roboto Condensed' },
 } as const;
 
+// Breakpoints si besoin d'un comportement layout différent (phone/tablet)
 export const breakpoints = {
   phone: 0,
   tablet: 768,
 } as const;
 
-// Typage pour TypeScript (si besoin)
+// Typage utile pour réutiliser le thème dans des hooks/components TypeScript
 export type AppTheme = typeof lightTheme;
